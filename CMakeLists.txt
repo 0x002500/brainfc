@@ -10,4 +10,5 @@ set(LLVM_LINK_COMPONENTS
 
 brainfuck_compiler(BrainF
   main.cpp
+  driver.cpp
   )

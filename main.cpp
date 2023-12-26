@@ -1,4 +1,4 @@
-#include "BrainF.h"
+#include "main.h"
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Constant.h"
