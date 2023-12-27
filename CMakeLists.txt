@@ -1,14 +1,11 @@
-set(LLVM_LINK_COMPONENTS
-  BitWriter
-  Core
-  ExecutionEngine
-  MC
-  MCJIT
-  Support
-  nativecodegen
-  )
+cmake_minimum_required(VERSION 3.0.0)
+project(brainfc VERSION 0.1.0 LANGUAGES C CXX)
 
-brainfuck_compiler(BrainF
-  main.cpp
-  driver.cpp
-  )
+include(CTest)
+enable_testing()
+
+add_executable(brainfc main.cpp driver.cpp)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
