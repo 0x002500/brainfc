@@ -18,7 +18,7 @@ add_definitions(${LLVM_DEFINITIONS})
 set(CMAKE_CXX_STANDARD 14)
 
 # 添加可执行文件
-add_executable(brainfc your_code.cpp)
+add_executable(brainfc main.cpp)
 
 # 链接LLVM库
 target_link_libraries(brainfc LLVM)
