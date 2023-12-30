@@ -4,7 +4,7 @@
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Support/TargetSelect.h>
 #include <iostream>
-#include <cstdio>
+#include <fstream>
 
 using namespace llvm;
 using namespace std;
@@ -124,18 +124,19 @@ void translate(const string& brainfuckCode, const string& outputFileName) {
     // Add return statement
     builder.CreateRetVoid();
 
-    // 输出到文件或stdout
-    if (!outputFileName.empty()) {
-        freopen(outputFileName.c_str(), "w", stdout);
-    } else {
-        module.print(outs(), nullptr);
-    }
+    // Verify the module
+    verifyModule(module, &errs());
+
+    // Write LLVM IR to file
+    std::error_code EC;
+    raw_fd_ostream OS(outputFileName, EC, sys::fs::F_None);
+    module.print(OS, nullptr);
 }
 
 int main() {
     std::string brainfuckCode = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>+++.>+.+++++++..+++.>++.<<+++++++++++++.>.";
 
-    // 将Brainfuck代码转换为LLVM IR并输出到文件
+    // 将Brainfuck代码转换为LLVM IR并保存到文件
     translate(brainfuckCode, "output.ll");
 
     return 0;
