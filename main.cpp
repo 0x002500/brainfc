@@ -55,8 +55,6 @@ void translateEndLoop(IRBuilder<>& builder, Value* dataPointer, Value* memory, B
     Value* cellValue = builder.CreateLoad(builder.CreateGEP(memory, {ptr}));
     Value* loopCondition = builder.CreateICmpNE(cellValue, builder.getInt8(0));
     builder.CreateCondBr(loopCondition, loopStart, loopEnd);
-
-    builder.SetInsertPoint(loopEnd);
 }
 
 void translateOutput(IRBuilder<>& builder, Value* dataPointer, Value* memory, Function* putcharFunction) {
@@ -126,7 +124,10 @@ void translate(const string& brainfuckCode, const string& outputFileName) {
 
     // 输出到文件或stdout
     if (!outputFileName.empty()) {
-        freopen(outputFileName.c_str(), "w", stdout);
+        std::error_code EC;
+        raw_fd_ostream file(outputFileName, EC, sys::fs::F_None);
+        module.print(file, nullptr);
+        file.close();
     } else {
         module.print(outs(), nullptr);
     }
