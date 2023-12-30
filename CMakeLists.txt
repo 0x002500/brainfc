@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(YourLLVMProject)
 
 # 设置LLVM安装路径
-set(LLVM_DIR "/path/to/llvm/share/llvm/cmake")
+set(LLVM_DIR "/usr/bin")
 list(APPEND CMAKE_PREFIX_PATH "${LLVM_DIR}")
 
 # 查找LLVM包
