@@ -1,24 +1,24 @@
 cmake_minimum_required(VERSION 3.12)
 project(YourLLVMProject)
 
-# 设置LLVM安装路径
-set(LLVM_DIR "/usr/bin")
+# Set the LLVM installation directory
+set(LLVM_DIR "/usr/lib/llvm-10/cmake")
 list(APPEND CMAKE_PREFIX_PATH "${LLVM_DIR}")
 
-# 查找LLVM包
+# Find LLVM package
 find_package(LLVM REQUIRED CONFIG)
 
-# 包含LLVM头文件
+# Include LLVM-related directories
 include_directories(${LLVM_INCLUDE_DIRS})
 
-# 添加定义
+# Add definitions
 add_definitions(${LLVM_DEFINITIONS})
 
-# 设置C++标准
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 
-# 添加可执行文件
+# Add your source files and executable
 add_executable(brainfc main.cpp)
 
-# 链接LLVM库
-target_link_libraries(brainfc LLVM)
+# Link against LLVM
+target_link_libraries(brainfc PRIVATE LLVM)
